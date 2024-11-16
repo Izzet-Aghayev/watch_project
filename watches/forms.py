@@ -7,4 +7,4 @@ class WatchForm(forms.ModelForm):
 
     class Meta:
         model = Watch
-        fields = "__all__"
+        fields = "__all__"  # Bununla bütün fieldlər götrülür.

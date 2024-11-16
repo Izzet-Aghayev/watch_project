@@ -51,6 +51,7 @@ def detail_watch(request, pk):
     return render(request, 'detail_watch.html', watch_context)
 
 
+# Update etmək üçün funksiya.
 def update_watch(request, pk):
     watch = get_object_or_404(Watch, id=pk)
     if request.method == 'POST':
@@ -70,8 +71,10 @@ def update_watch(request, pk):
         }
         return render(request, 'update_watch.html', context)
 
+
+# Silmə edtmək üçün funksiya.
 def delete_watch(request, pk):
     watch = get_object_or_404(Watch, id=pk)
-    watch.delete()
-    messages.success(request, f'{pk} ID-li watch məlumatları silindi.')
+    watch.delete()      # Watch məlumatlarını silmək üçün method.
+    messages.success(request, f'{pk} ID-li watch məlumatları silindi.') # Uğurlu mesajı.
     return redirect('all_watch')

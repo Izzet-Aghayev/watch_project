@@ -3,12 +3,12 @@ from django.db import models
 
 # Modellər burada yaradılır.
 class Watch(models.Model):
-    marka = models.CharField(max_length=50)
+    marka = models.CharField(max_length=50)     # Simvol limiti vermək olur.
     model = models.CharField(max_length=70)
-    describtion = models.TextField()
-    price = models.FloatField()
-    discount_price = models.FloatField()
-    discount_dedline = models.DateField(null=True, blank=True)
+    describtion = models.TextField()            # Simvol limiti yoxdiur.
+    price = models.DecimalField(max_digits=10, decimal_places=2)  # Qiymət üçün lazım olan fielddir.
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_dedline = models.DateField(null=True, blank=True)  # Tarixi vermək üçün fielddir.
 
     def __str__(self):
         return f'{self.marka} - {self.model}'
