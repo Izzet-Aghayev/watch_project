@@ -1,21 +1,19 @@
-from django.shortcuts import get_object_or_404
-from django.contrib import messages
-from django.forms import ModelForm
+from django.shortcuts import get_object_or_404  # Məlumatları və ya error-u almaq üçündür.
+from django.contrib import messages             # Mesajlar üçündür.
 from django.shortcuts import(
-    render,
-    redirect
+    render,     # Html səhifılırini gətirmək üçündür.
+    redirect    # Şablonu göstərmək üçündür.
 )
 
-import watches
-from watches.models import Watch
-from watches.forms import WatchForm
+from watches.models import Watch    # Model import edilir.
+from watches.forms import WatchForm # Form import edilir.
 
 
-# Əsas funksliyalar yaradılır.
+                            # Əsas funksliyalar yaradılır.
 
 # Bütün watch məlumatları.
 def all_watches(request):
-    watches = Watch.objects.all()
+    watches = Watch.objects.all()   # Watch modelindəki bütün verailbleləri verir.
     context = {
         'watches': watches
     }
@@ -25,13 +23,13 @@ def all_watches(request):
 # Watch məlumatlarını daxil edildiyi form funksiyası.
 def create_watch(request):
     if request.method == 'POST':   # Sorğunun POST olmasını yoxlayır.
-        form = WatchForm(request.POST)
+        form = WatchForm(request.POST)  # Post sorğusuna görə formu verir.
         if form.is_valid():     # Formun valuesinin doğruluğunu yoxlayır.
             form.save()         # Formu save edir.
             return redirect('all_watch')
         else:
             messages.error(request, "Yanlış əməliyyat")
-            messages.error(request, form.errors)
+            messages.error(request, form.errors)    # Formun errorlarını verir.
             messages.error(request, "MM/DD/YYYY")
             return redirect('watch_create')
         
@@ -42,6 +40,7 @@ def create_watch(request):
         return render(request, 'create_watch.html', watch_form)
 
 
+# Detalları göstərən funksiya.
 def detail_watch(request, pk):
     watch = get_object_or_404(Watch, id=pk)
 
