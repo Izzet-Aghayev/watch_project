@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch | Home</title>
+</head>
+<body>
+    {% if messages %}
+    {% for message in messages %}
+    <p>{{ message }}</p>
+    {% endfor %}
+    <p>------------------------------------------</p>
+    {% endif %}
+    <a href="{% url 'watch_create' %}">Create</a><br>
+    <p>------------------------------------------</p>
+
+
+    {% for watch in watches %}
+    <a href="{% url 'watch_update' watch.id %}">Update</a><br>
+    <a href="{% url 'watch_delete' watch.id %}">Delete</a><br><br>
+    <a href="{% url 'watch_detail' watch.id %}">{{ watch.id }}</a>
+    <p>{{ watch.marka }}</p>
+    <p>{{ watch.model }}</p>
+    <p>{{ watch.describtion }}</p>
+    <p>{{ watch.price }}</p>
+    <p>{{ watch.discount_price }}</p>
+    <p>{{ watch.discount_dedline }}</p>
+    <p>------------------------------------------</p>
+    {% endfor %}
+</body>
+</html>
