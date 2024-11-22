@@ -12,14 +12,30 @@
     {% endfor %}
     <p>------------------------------------------</p>
     {% endif %}
-    <a href="{% url 'watch_create' %}">Create</a><br>
+
+    {% if user.is_authenticated %}
+        <nav style="display: flex; justify-content:space-between; width: 120px;">
+            <h3><a href="{% url 'logout' %}">Logout</a></h3>
+            <h3><a href="{% url 'watch_create' %}">Create</a></h3>
+        </nav>
+    {% else %}
+        <nav style="display: flex; justify-content:space-between; width: 120px;">
+            <h3><a href="{% url 'login' %}">Login</a></h3>
+            <h3><a href="{% url 'watch_create' %}">Create</a></h3>
+        </nav>
+    {% endif %}
     <p>------------------------------------------</p>
 
 
     {% for watch in watches %}
-    <a href="{% url 'watch_update' watch.id %}">Update</a><br>
-    <a href="{% url 'watch_delete' watch.id %}">Delete</a><br><br>
+
+    {% if user == watch.user %}
+        <a href="{% url 'watch_update' watch.id %}">Update</a><br>
+        <a href="{% url 'watch_delete' watch.id %}">Delete</a><br><br>
+    {% endif %}
+    
     <a href="{% url 'watch_detail' watch.id %}">{{ watch.id }}</a>
+    <p>{{ watch.user }}</p>
     <p>{{ watch.marka }}</p>
     <p>{{ watch.model }}</p>
     <p>{{ watch.describtion }}</p>

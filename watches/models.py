@@ -1,8 +1,12 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
 
 # Modellər burada yaradılır.
 class Watch(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
     marka = models.CharField(max_length=50)     # Simvol limiti vermək olur.
     model = models.CharField(max_length=70)
     describtion = models.TextField()            # Simvol limiti yoxdiur.
@@ -11,4 +15,4 @@ class Watch(models.Model):
     discount_dedline = models.DateField(null=True, blank=True)  # Tarixi vermək üçün fielddir.
 
     def __str__(self):
-        return f'{self.marka} - {self.model}'
+        return f'{self.user.username} - {self.marka}'

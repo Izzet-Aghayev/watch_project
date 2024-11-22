@@ -5,5 +5,6 @@ from accounts import views as accounts_views
 
 # urls.py views.py fayillari elaqelendirilir
 urlpatterns = [
-    path('', accounts_views.account)
+    path('login/', accounts_views.sign_in, name='login'),
+    path('logout/', accounts_views.sign_out, name='logout'),
 ]
