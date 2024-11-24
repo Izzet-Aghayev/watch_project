@@ -14,14 +14,15 @@
     {% endif %}
 
     {% if user.is_authenticated %}
-        <nav style="display: flex; justify-content:space-between; width: 120px;">
+        <nav style="display: flex; justify-content:space-between; width: 210px;">
             <h3><a href="{% url 'logout' %}">Logout</a></h3>
             <h3><a href="{% url 'watch_create' %}">Create</a></h3>
+            <h3><a href="{% url 'profile' %}">Profile</a></h3>
         </nav>
     {% else %}
-        <nav style="display: flex; justify-content:space-between; width: 120px;">
+        <nav style="display: flex; justify-content:space-between; width: 140px;">
+            <h3><a href="{% url 'register' %}">Register</a></h3>
             <h3><a href="{% url 'login' %}">Login</a></h3>
-            <h3><a href="{% url 'watch_create' %}">Create</a></h3>
         </nav>
     {% endif %}
     <p>------------------------------------------</p>

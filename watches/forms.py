@@ -7,4 +7,4 @@ class WatchForm(forms.ModelForm):
 
     class Meta:
         model = Watch
-        exclude = ('user',)  # Bununla bütün fieldlər götrülür.
+        exclude = ('user',)  # Bununla seçilmiş fieldlər xaric digər fieldlər götrülür.
