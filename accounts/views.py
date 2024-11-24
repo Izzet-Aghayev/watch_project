@@ -1,4 +1,3 @@
-import re
 from .models import Profile
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -56,12 +55,13 @@ def register(request):
         return render(request, 'accounts/register.html', context)
     
 
+# Profili update etmək üçün funksiya.
 def profile(request):
-    user_profil = Profile.objects.filter(user=request.user)
+    user_profil = Profile.objects.filter(user=request.user)    # Userə uyğun profili alır.
     profile = get_object_or_404(user_profil)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)
+        form = ProfileForm(request.POST, instance=profile)      # instance formun məlumatlarını foruma dolduru.
         if form.is_valid():
             form.save()
             messages.success(request, 'Profil məlumatlar yeniləndi.')
