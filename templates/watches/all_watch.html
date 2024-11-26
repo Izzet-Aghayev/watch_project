@@ -30,13 +30,13 @@
 
     {% for watch in watches %}
 
-    {% if user == watch.user %}
+    {% if user == watch.seller %}
         <a href="{% url 'watch_update' watch.id %}">Update</a><br>
         <a href="{% url 'watch_delete' watch.id %}">Delete</a><br><br>
     {% endif %}
     
     <a href="{% url 'watch_detail' watch.id %}">{{ watch.id }}</a>
-    <p>{{ watch.user }}</p>
+    <p>{{ watch.seller }}</p>
     <p>{{ watch.marka }}</p>
     <p>{{ watch.model }}</p>
     <p>{{ watch.describtion }}</p>

@@ -17,7 +17,7 @@ class Category(models.Model):
 
 # Modellər burada yaradılır.
 class Watch(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)    # User ilə Watch modelinin əlaqəsi.
+    seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)    # User ilə Watch modelinin əlaqəsi.
     categories = models.ManyToManyField(Category)       # Kateqoriya ilə Watch modelini qlaqələndiri.
 
     marka = models.CharField(max_length=50)     # Simvol limiti vermək olur.
@@ -28,4 +28,4 @@ class Watch(models.Model):
     discount_dedline = models.DateField(null=True, blank=True)  # Tarixi vermək üçün fielddir.
 
     def __str__(self):
-        return f'{self.user.username} - {self.marka}'
+        return f'{self.seller.username} - {self.marka}'

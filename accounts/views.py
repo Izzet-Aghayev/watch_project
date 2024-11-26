@@ -12,11 +12,11 @@ def sign_in(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(request, username=username, password=password)
+        seller = authenticate(request, username=username, password=password)
         
-        if user is not None and user.is_active:
-            login(request, user=user)
-            messages.success(request, f'Xoş gəldiniz, {user.username}')
+        if seller is not None and seller.is_active:
+            login(request, user=seller)
+            messages.success(request, f'Xoş gəldiniz, {seller.username}')
             return redirect('all_watch')
         else:
             messages.info(request, 'İstifadəçi adı və ya şifrə yanlışdır.')
@@ -57,8 +57,8 @@ def register(request):
 
 # Profili update etmək üçün funksiya.
 def profile(request):
-    user_profil = Profile.objects.filter(user=request.user)    # Userə uyğun profili alır.
-    profile = get_object_or_404(user_profil)
+    seller_profile = Profile.objects.filter(seller=request.user)    # Userə uyğun profili alır.
+    profile = get_object_or_404(seller_profile)
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, instance=profile)      # instance formun məlumatlarını foruma dolduru.

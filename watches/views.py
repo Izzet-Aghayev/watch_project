@@ -28,7 +28,7 @@ def create_watch(request):
         form = WatchForm(request.POST)  # Post sorğusuna görə formu verir.
         if form.is_valid():     # Formun valuesinin doğruluğunu yoxlayır.
             new_form = form.save(commit=False)       # Formu python səviyyəsində save edir.
-            new_form.user = request.user        # Foruma useri daxil edir.
+            new_form.seller = request.user        # Foruma useri daxil edir.
             form.save()         # Formu seyv edir.
             new_form.save()     # SQL səviyyəsində forumu seyv edirik.
             return redirect('all_watch')
@@ -47,8 +47,7 @@ def create_watch(request):
 
 # Detalları göstərən funksiya.
 def detail_watch(request, pk):
-    watches = Watch.objects.filter(user=request.user)      # Useri request-dəki userlə eyni olan watch-ları seçib alır. 
-    watch = get_object_or_404(watches, id=pk)
+    watch = get_object_or_404(Watch, id=pk)
 
     watch_context = {
         'watch': watch
@@ -59,7 +58,7 @@ def detail_watch(request, pk):
 
 # Update etmək üçün funksiya.
 def update_watch(request, pk):
-    watches = Watch.objects.filter(user=request.user)
+    watches = Watch.objects.filter(seller=request.user)             # Useri request-dəki userlə eyni olan watch-ları seçib alır. 
     watch = get_object_or_404(watches, id=pk)
     if request.method == 'POST':
         form = WatchForm(request.POST, instance=watch)

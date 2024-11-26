@@ -9,4 +9,4 @@ from .models import Profile
 @receiver(post_save, sender=User)
 def creation_profile(sender, instance, created, **kwargs):
     if created:
-        Profile.objects.create(user=instance)    # Yeni user qeydiyyatı tamamladığı zaman ona uyğun profil yaradır.
+        Profile.objects.create(seller=instance)    # Yeni seller qeydiyyatı tamamladığı zaman ona uyğun profil yaradır.
