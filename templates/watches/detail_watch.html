@@ -9,6 +9,11 @@
     <a href="{% url 'all_watch' %}" >Home</a><br>
     <p>------------------------------------------</p>
     
+    {% if watch.watch_image %}
+    <img src="{{ watch.watch_image.url }}" alt="Watch image" style="width: 200px; height: 170px;">
+    {% else %}
+    <img src="/media/media/images.png" alt="Watch image" style="width: 200px; height: 170px;">
+    {% endif %}
 
     <p>{{ watch.id }}</p>
     <p>{{ watch.marka }}</p>

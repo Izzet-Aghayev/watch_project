@@ -61,11 +61,11 @@ def profile(request):
     profile = get_object_or_404(seller_profile)
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, instance=profile)      # instance formun məlumatlarını foruma dolduru.
+        form = ProfileForm(request.POST, request.FILES, instance=profile)      # instance formun məlumatlarını foruma dolduru.
         if form.is_valid():
             form.save()
             messages.success(request, 'Profil məlumatlar yeniləndi.')
-            return redirect('all_watch')
+            return redirect('profile')
         else:
             messages.error(request, form.errors)
             return redirect('profile')
@@ -73,6 +73,7 @@ def profile(request):
     else:
         form = ProfileForm(instance=profile)
         context = {
-            'profile_form': form
+            'profile_form': form,
+            'profile': profile
         }
         return render(request, 'accounts/profile.html', context)

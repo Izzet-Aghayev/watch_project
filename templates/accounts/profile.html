@@ -15,7 +15,13 @@
     {% endfor %}
     {% endif %}
 
-    <form method="post">
+    {% if profile.profile_image %}
+    <img src="{{ profile.profile_image.url }}" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;">
+    {% else %}
+    <img src="/media/media/download.png" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;">
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ profile_form.as_p }}
         <input type="submit">

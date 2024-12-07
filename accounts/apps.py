@@ -8,3 +8,5 @@ class AccountsConfig(AppConfig):
     # signals faylını bu method daxilində import edirik 
     def ready(self):
         from accounts import signals
+
+

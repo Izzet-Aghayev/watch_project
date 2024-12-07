@@ -25,7 +25,7 @@ def all_watches(request):
 @login_required  # creat səhifəsindən öncə login hissəsinin açılmasını təmin edir 
 def create_watch(request):
     if request.method == 'POST':   # Sorğunun POST olmasını yoxlayır.
-        form = WatchForm(request.POST)  # Post sorğusuna görə formu verir.
+        form = WatchForm(request.POST, request.FILES)  # Post sorğusuna görə formu verir.
         if form.is_valid():     # Formun valuesinin doğruluğunu yoxlayır.
             new_form = form.save(commit=False)       # Formu python səviyyəsində save edir.
             new_form.seller = request.user        # Foruma useri daxil edir.
@@ -57,11 +57,12 @@ def detail_watch(request, pk):
 
 
 # Update etmək üçün funksiya.
+@login_required
 def update_watch(request, pk):
     watches = Watch.objects.filter(seller=request.user)             # Useri request-dəki userlə eyni olan watch-ları seçib alır. 
     watch = get_object_or_404(watches, id=pk)
     if request.method == 'POST':
-        form = WatchForm(request.POST, instance=watch)
+        form = WatchForm(request.POST, request.FILES, instance=watch)
         if form.is_valid():
             form.save()
             return redirect('watch_detail', watch.id)
@@ -73,14 +74,17 @@ def update_watch(request, pk):
     else:
         form = WatchForm(instance=watch)
         context = {
-            'form': form
+            'form': form,
+            'watch': watch
         }
         return render(request, 'watches/update_watch.html', context)
 
 
 # Silmə edtmək üçün funksiya.
+@login_required
 def delete_watch(request, pk):
-    watch = get_object_or_404(Watch, id=pk)
+    watches = Watch.objects.filter(seller=request.user)
+    watch = get_object_or_404(watches, id=pk)
     watch.delete()      # Watch məlumatlarını silmək üçün method.
     messages.success(request, f'{pk} ID-li watch məlumatları silindi.') # Uğurlu mesajı.
     return redirect('all_watch')

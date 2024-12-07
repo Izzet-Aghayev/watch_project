@@ -16,7 +16,14 @@
     {% endfor %}
     <p>------------------------------------------</p>
     {% endif %}
-    <form method="post">
+    
+    {% if watch.watch_image %}
+    <img src="{{ watch.watch_image.url }}" alt="Watch image" style="width: 200px; height: 170px;">
+    {% else %}
+    <img src="/media/media/images.png" alt="Watch image" style="width: 200px; height: 170px;">
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit">
