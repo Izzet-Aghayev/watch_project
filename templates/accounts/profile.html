@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Watxh | {{ user.username }}</title>
-</head>
-<body>
-    <a href="{% url 'all_watch' %}">Home</a><br>
+  </head>
+  <body>
+    <a href="{% url 'all_watch' %}">Home</a><br />
     <p>------------------------------------------</p>
 
     {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
+      {% for message in messages %}
+        <p>{{ message }}</p>
     {% endfor %}
     {% endif %}
 
     {% if profile.profile_image %}
-    <img src="{{ profile.profile_image.url }}" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;">
+      <img src="{{ profile.profile_image.url }}" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;" />
     {% else %}
-    <img src="/media/media/download.png" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;">
+      <img src="/media/media/download.png" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;" />
     {% endif %}
 
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ profile_form.as_p }}
-        <input type="submit">
+      {% csrf_token %}
+      {{ profile_form.as_p }}
+      <input type="submit" />
     </form>
-</body>
+  </body>
 </html>

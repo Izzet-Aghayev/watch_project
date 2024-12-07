@@ -1,54 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Watch | Home</title>
-</head>
-<body>
+  </head>
+  <body>
     {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-    <p>------------------------------------------</p>
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+      <p>------------------------------------------</p>
     {% endif %}
 
     {% if user.is_authenticated %}
-        <nav style="display: flex; justify-content:space-between; width: 210px;">
-            <h3><a href="{% url 'logout' %}">Logout</a></h3>
-            <h3><a href="{% url 'watch_create' %}">Create</a></h3>
-            <h3><a href="{% url 'profile' %}">Profile</a></h3>
-        </nav>
+      <nav style="display: flex; justify-content:space-between; width: 210px;">
+        <h3><a href="{% url 'logout' %}">Logout</a></h3>
+        <h3><a href="{% url 'watch_create' %}">Create</a></h3>
+        <h3><a href="{% url 'profile' %}">Profile</a></h3>
+      </nav>
     {% else %}
-        <nav style="display: flex; justify-content:space-between; width: 140px;">
-            <h3><a href="{% url 'register' %}">Register</a></h3>
-            <h3><a href="{% url 'login' %}">Login</a></h3>
-        </nav>
+      <nav style="display: flex; justify-content:space-between; width: 140px;">
+        <h3><a href="{% url 'register' %}">Register</a></h3>
+        <h3><a href="{% url 'login' %}">Login</a></h3>
+      </nav>
     {% endif %}
     <p>------------------------------------------</p>
-
 
     {% for watch in watches %}
+      {% if user == watch.seller %}
+        <a href="{% url 'watch_update' watch.id %}">Update</a><br />
+        <a href="{% url 'watch_delete' watch.id %}">Delete</a><br /><br />
+      {% endif %}
 
-    {% if user == watch.seller %}
-        <a href="{% url 'watch_update' watch.id %}">Update</a><br>
-        <a href="{% url 'watch_delete' watch.id %}">Delete</a><br><br>
-    {% endif %}
-    
-    <a href="{% url 'watch_detail' watch.id %}">{{ watch.id }}</a>
-    {% if watch.watch_image %}
-    <img src="{{ watch.watch_image.url }}" alt="Watch image" style="width: 200px; height: 170px;">
-    {% else %}
-    <img src="/media/media/images.png" alt="Watch image" style="width: 200px; height: 170px;">
-    {% endif %}
-    <p>{{ watch.seller }}</p>
-    <p>{{ watch.marka }}</p>
-    <p>{{ watch.model }}</p>
-    <p>{{ watch.describtion }}</p>
-    <p>{{ watch.price }}</p>
-    <p>{{ watch.discount_price }}</p>
-    <p>{{ watch.discount_dedline }}</p>
-    <p>------------------------------------------</p>
+      <a href="{% url 'watch_detail' watch.id %}">{{ watch.id }}</a>
+      {% if watch.watch_image %}
+        <img src="{{ watch.watch_image.url }}" alt="Watch image" style="width: 200px; height: 170px;" />
+      {% else %}
+        <img src="/media/media/images.png" alt="Watch image" style="width: 200px; height: 170px;" />
+      {% endif %}
+      <p>{{ watch.seller }}</p>
+      <p>{{ watch.marka }}</p>
+      <p>{{ watch.model }}</p>
+      <p>{{ watch.describtion }}</p>
+      <p>{{ watch.price }}</p>
+      <p>{{ watch.discount_price }}</p>
+      <p>{{ watch.discount_dedline }}</p>
+      <p>------------------------------------------</p>
     {% endfor %}
-</body>
+  </body>
 </html>

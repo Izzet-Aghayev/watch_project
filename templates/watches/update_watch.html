@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Watch | Update</title>
-</head>
-<body>
-    <a href="{% url 'all_watch' %}">Home</a><br>
+  </head>
+  <body>
+    <a href="{% url 'all_watch' %}">Home</a><br />
     <p>------------------------------------------</p>
-
 
     {% if messages %}
-    {% for message in messages %}
-    <p>{{ message }}</p>
-    {% endfor %}
-    <p>------------------------------------------</p>
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+      <p>------------------------------------------</p>
     {% endif %}
-    
+
     {% if watch.watch_image %}
-    <img src="{{ watch.watch_image.url }}" alt="Watch image" style="width: 200px; height: 170px;">
+      <img src="{{ watch.watch_image.url }}" alt="Watch image" style="width: 200px; height: 170px;" />
     {% else %}
-    <img src="/media/media/images.png" alt="Watch image" style="width: 200px; height: 170px;">
+      <img src="/media/media/images.png" alt="Watch image" style="width: 200px; height: 170px;" />
     {% endif %}
 
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" />
     </form>
-</body>
+  </body>
 </html>
