@@ -21,6 +21,14 @@ def all_watches(request):
     return render(request, 'watches/all_watch.html', context)
 
 
+def my_watches(request):
+    my_watches = Watch.objects.filter(seller=request.user)
+    context = {
+        'my_watches': my_watches
+    }
+    return render(request, 'watches/my_watches.html', context)
+
+
 # Watch məlumatlarını daxil edildiyi form funksiyası.
 @login_required  # creat səhifəsindən öncə login hissəsinin açılmasını təmin edir 
 def create_watch(request):
@@ -67,9 +75,7 @@ def update_watch(request, pk):
             form.save()
             return redirect('watch_detail', watch.id)
         else:
-            messages.error(request, 'Yanlış əməliyyat.')
             messages.error(request, form.errors)
-            messages.error(request, "MM/DD/YYYY")
             return redirect('watch_update', watch.id)
     else:
         form = WatchForm(instance=watch)

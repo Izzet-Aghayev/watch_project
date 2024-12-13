@@ -1,6 +1,7 @@
 from .models import Profile
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required 
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
@@ -77,3 +78,11 @@ def profile(request):
             'profile': profile
         }
         return render(request, 'accounts/profile.html', context)
+    
+
+# Hesabı silmək üçün funksiya
+@login_required
+def delete_seller(request):
+    seller = request.user
+    seller.delete()
+    return redirect('all_watch')

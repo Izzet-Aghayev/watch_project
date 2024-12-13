@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    {% if user.is_authenticated %}
+      <div class="container-fluid">
+        <ul class="navbar-nav" >
+          <li class="nav-item mx-5">
+            <a class="nav-link {% if request.resolver_match.url_name == 'all_watch' %} active {% else %} text-primary {% endif %}" aria-current="page" href="{% url 'all_watch' %}">All watches</a>
+          </li>
+  
+          <li class="nav-item me-5">
+            <a class="nav-link {% if request.resolver_match.url_name == 'my_watch' %} active {% else %} text-primary {% endif %}" aria-current="page" href="{% url 'my_watch' %}">My watches</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'watch_create' %} active {% else %} text-primary {% endif %}" href="{% url 'watch_create' %}">Add watch</a>
+          </li>
+        </ul>
+  
+        <div class="nav-item dropdown me-5">
+          <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'profile' or request.resolver_match.url_name == 'logout' %} active {% else %} text-primary {% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item {% if request.resolver_match.url_name == 'profile' %} active {% else %} text-primary {% endif %}" href="{% url 'profile' %}">Profile</a>
+            </li>
+            <li>
+              <a class="dropdown-item {% if request.resolver_match.url_name == 'logout' %} active {% else %} text-primary {% endif %}" href="{% url 'logout' %}">Logout</a>
+            </li>
+            <li>
+              <a class="dropdown-item {% if request.resolver_match.url_name == 'delete_seller' %} active {% else %} text-primary {% endif %}" href="{% url 'delete_seller' %}">Del account</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    {% else %}
+      <div class="container-fluid">
+        <ul class="navbar-nav">
+          <li class="nav-item mx-5">
+            <a class="nav-link {% if request.resolver_match.url_name == 'all_watch' %} active {% else %} text-primary {% endif %}" aria-current="page" href="{% url 'all_watch' %}">Home</a>
+          </li>
+  
+          <li class="nav-item me-5">
+            <a class="nav-link {% if request.resolver_match.url_name == 'register' %} active {% else %} text-primary {% endif %}" aria-current="page" href="{% url 'register' %}">Register</a>
+          </li>
+  
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'login' %} active {% else %} text-primary {% endif %}" href="{% url 'login' %}">Login</a>
+          </li>
+        </ul>
+      </div>
+    {% endif %}
+  </nav>
+  

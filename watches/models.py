@@ -17,10 +17,10 @@ class Category(models.Model):
 
 # Modellər burada yaradılır.
 class Watch(models.Model):
-    seller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)    # User ilə Watch modelinin əlaqəsi.
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True)    # User ilə Watch modelinin əlaqəsi.
     categories = models.ManyToManyField(Category)       # Kateqoriya ilə Watch modelini qlaqələndiri.
 
-    marka = models.CharField(max_length=50)     # Simvol limiti vermək olur.
+    brand = models.CharField(max_length=50)     # Simvol limiti vermək olur.
     model = models.CharField(max_length=70)
     describtion = models.TextField()            # Simvol limiti yoxdiur.
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Qiymət üçün lazım olan fielddir.
@@ -30,6 +30,7 @@ class Watch(models.Model):
 
     def __str__(self):
         try:
-            return f'{self.seller.username} - {self.marka}'
+            return f'{self.seller.username} - {self.brand}'
         except:
             return f"{self.pk}. 'Anonim' - {self.model}"
+        

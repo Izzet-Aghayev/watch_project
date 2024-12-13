@@ -1,7 +1,7 @@
 {% extends 'base/layout.html' %}
 
 {% block title %}
-  All watches
+  My watches
 {% endblock %}
 
 {% block message %}
@@ -15,9 +15,9 @@
 {% endblock %}
 
 {% block content %}
-
-<div class="row row-cols-3 mb-3">
-  {% for watch in watches %}
+ 
+<div class="row row-cols-3">
+  {% for watch in my_watches %}
     <div class="col mt-5 d-flex justify-content-around">
       <div class="card" style="width: 18rem; box-shadow: 2px 3px 6px aqua; background-color: rgb(241, 241, 241);">
         {% if watch.watch_image %}
@@ -25,27 +25,38 @@
         {% else %}
           <img src="/media/media/images.png" alt="default" style="width: auto; height: 250px; object-fit: cover;" />
         {% endif %}
-       
+        <hr />
         <div class="card-body">
-          <div class="d-flex justify-content-evenly ms-2">
+          <div class="d-flex justify-content-evenly">
             <p class="card-title w-50">{{ watch.brand }}</p>
             <p class="card-text w-50">{{ watch.model }}</p>
           </div>
           <div class="d-flex justify-content-around me-5">
-            <b style="color: green; font-size: 21px; margin-right: 11px;">{{ watch.discount_price }} azn</b>
+            <b style="color: green; font-size: 21px; margin-right: 10px;">{{ watch.discount_price }} azn</b>
             <p style="color: red; font-size: 18px;">
               <s>{{ watch.price }}</s> azn
             </p>
           </div>
 
-          <b style="margin-left: 7px;">Son tarix:</b>
+          <b>Son tarix:</b>
           <b style="color: black; margin-left: 10px;">{{ watch.discount_dedline|date:'d.m.Y' }}</b>
 
-          <div class="d-flex mt-2">
+          <div class="d-flex justify-content-between mt-2">
             <form action="{% url 'watch_detail' watch.id %}" method="post">
               {% csrf_token %}
               <button class="btn btn-primary ms-2">Ətraflı</button>
             </form>
+            {% if watch.user == seller %}
+              <form action="{% url 'watch_update' watch.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-warning ms-2">Yenilə</button>
+              </form>
+
+              <form action="{% url 'watch_delete' watch.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger ms-2">Sil</button>
+              </form>
+            {% endif %}
           </div>
         </div>
       </div>

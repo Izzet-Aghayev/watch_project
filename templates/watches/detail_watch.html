@@ -1,26 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Watch | Details</title>
-  </head>
-  <body>
-    <a href="{% url 'all_watch' %}">Home</a><br />
-    <p>------------------------------------------</p>
+{% extends 'base/layout.html' %}
 
-    {% if watch.watch_image %}
-      <img src="{{ watch.watch_image.url }}" alt="Watch image" style="width: 200px; height: 170px;" />
-    {% else %}
-      <img src="/media/media/images.png" alt="Watch image" style="width: 200px; height: 170px;" />
-    {% endif %}
+{% block title %}
+  Details-{{ watch.marka }}
+{% endblock %}
 
-    <p>{{ watch.id }}</p>
-    <p>{{ watch.marka }}</p>
-    <p>{{ watch.model }}</p>
-    <p>{{ watch.describtion }}</p>
-    <p>{{ watch.price }}</p>
-    <p>{{ watch.discount_price }}</p>
-    <p>{{ watch.discount_dedline }}</p>
-  </body>
-</html>
+{% block content %}
+  
+<div class="card ms-5 my-3" style="width: 20rem;">
+  {% if watch.watch_image %}
+    <img src="{{ watch.watch_image.url }}" alt="watch-watch_image-{{ watch.id }}" class="card-img-top" style="width: auto; height: 250px; object-fit: cover;" />
+  {% else %}
+    <img src="/media/media/images.png" alt="default" style="width: auto; height: 250px; object-fit: cover;" />
+  {% endif %}
+  <hr>
+  <div class="card-body">
+    <div class="d-flex justify-content-evenly">
+      <p class="card-title w-50">{{ watch.brand }}</p>
+      <p class="card-text w-50">{{ watch.model }}</p>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-around me-5">
+      <b style="color: green; font-size: 21px; margin-right: 10px;">{{ watch.discount_price }} azn</b>
+      <p style="color: red; font-size: 18px;">
+        <s>{{ watch.price }}</s> azn
+      </p>
+    </div>
+
+    <b style="margin-left: 12px;">Son tarix:</b>
+    <b style="color: black; margin-left: 10px;">{{ watch.discount_dedline|date:'d.m.Y' }}</b>
+
+    <hr>
+
+    <p style="display: inline-block; color: blue;">Mağaza:</p>
+    <b style="color: black; margin-left: 10px; font-size: 19px;">{{ watch.seller }}</b>
+
+    <hr>
+
+    <b style="display: inline-block; color: rgb(124, 122, 122);">Haqqında:</b>
+    <p style="display: inline; width: 250px;">{{ watch.describtion }}</p>
+    <hr>
+
+    <b style="display: inline-block; color: rgb(124, 122, 122);">Kateqoriyalar:</b>
+    {% for category in watch.categories.all %}
+    <p style="display: inline;" class="card-text">{{ category.name }},</p>
+    {% endfor %}
+
+    <div class="d-flex justify-content-around mt-4">
+      {% if watch.user == user %}
+        <form action="{% url 'update_watch' watch.id %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-warning ms-2">Yenilə</button>
+        </form>
+
+        <form action="{% url 'delete_watch' watch.id %}" method="post">
+          {% csrf_token %}
+          <button class="btn btn-danger ms-2">Sil</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

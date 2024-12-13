@@ -1,30 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Watxh | {{ user.username }}</title>
-  </head>
-  <body>
-    <a href="{% url 'all_watch' %}">Home</a><br />
-    <p>------------------------------------------</p>
+{% extends 'base/layout.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
 
-    {% if messages %}
-      {% for message in messages %}
-        <p>{{ message }}</p>
+{% block title %}
+  Profile-{{ user.username }}
+{% endblock %}
+
+{% block message %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="container" style="background-color: lightsteelblue; width: 600px;">
+        <b><div class="mx-auto p-2" style="width: auto; font-size: 18px; color: rgb(219, 36, 36); text-align: center;">{{ message }}</div></b>
+      </div>
     {% endfor %}
-    {% endif %}
+  {% endif %}
+{% endblock %}
 
-    {% if profile.profile_image %}
-      <img src="{{ profile.profile_image.url }}" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;" />
-    {% else %}
-      <img src="/media/media/download.png" alt="Profile image" style="width: 200px; height: 170px; border-radius: 50%;" />
-    {% endif %}
+{% block content %}
+  
+<div class="container d-flex flex-column aling-items-center mt-4 mb-4 w-75">
+  <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column me-5 mt-5">
+      {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}" alt="Profile image" style="width: 150px; height: 130px; border-radius: 50%;" />
+      {% else %}
+        <img src="/media/media/download.png" alt="Profile image" style="width: 150px; height: 130px; border-radius: 50%;" />
+      {% endif %}
+    </div>
 
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ profile_form.as_p }}
-      <input type="submit" />
-    </form>
-  </body>
-</html>
+    <div>
+      <form method="post" enctype="multipart/form-data" class="mt-4 d-flex flex-column">
+        {% csrf_token %}
+        {{ profile_form|crispy }}
+
+        <div class="d-flex justify-content-center">
+          <input type="submit" class="btn btn-outline-primary btn-lg" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  
+{% endblock %}
