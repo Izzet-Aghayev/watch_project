@@ -25,7 +25,7 @@ class Watch(models.Model):
     describtion = models.TextField()            # Simvol limiti yoxdiur.
     price = models.DecimalField(max_digits=10, decimal_places=2)  # Qiymət üçün lazım olan fielddir.
     discount_price = models.DecimalField(max_digits=10, decimal_places=2)
-    discount_dedline = models.DateField(null=True, blank=True)  # Tarixi vermək üçün fielddir.
+    discount_dedline = models.DateTimeField(null=True, blank=True)  # Tarixi vermək üçün fielddir.
     watch_image = models.ImageField(upload_to='media', null=True, blank=True)   # Image filed.
 
     def __str__(self):

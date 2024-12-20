@@ -55,7 +55,8 @@ def create_watch(request):
 
 # Detalları göstərən funksiya.
 def detail_watch(request, pk):
-    watch = get_object_or_404(Watch, id=pk)
+    watches = Watch.objects.select_related('seller').prefetch_related('categories')
+    watch = get_object_or_404(watches, id=pk)
 
     watch_context = {
         'watch': watch
@@ -67,7 +68,7 @@ def detail_watch(request, pk):
 # Update etmək üçün funksiya.
 @login_required
 def update_watch(request, pk):
-    watches = Watch.objects.filter(seller=request.user)             # Useri request-dəki userlə eyni olan watch-ları seçib alır. 
+    watches = Watch.objects.filter(seller=request.user).select_related('seller').prefetch_related('categories')            # Useri request-dəki userlə eyni olan watch-ları seçib alır. 
     watch = get_object_or_404(watches, id=pk)
     if request.method == 'POST':
         form = WatchForm(request.POST, request.FILES, instance=watch)

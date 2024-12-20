@@ -24,9 +24,6 @@
             <li>
               <a class="dropdown-item {% if request.resolver_match.url_name == 'logout' %} active {% else %} text-primary {% endif %}" href="{% url 'logout' %}">Logout</a>
             </li>
-            <li>
-              <a class="dropdown-item {% if request.resolver_match.url_name == 'delete_seller' %} active {% else %} text-primary {% endif %}" href="{% url 'delete_seller' %}">Del account</a>
-            </li>
           </ul>
         </div>
       </div>
