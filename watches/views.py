@@ -156,13 +156,13 @@ class DetailWatchView(LoginRequiredMixin, View):
         watch = get_object_or_404(watches, id=pk)
         return watch
 
-    # def get(self, request, pk):
-    #     watch = self.get_object(pk=pk)
-    #     watch_context = {
-    #         'watch': watch
-    #     }
+    def get(self, request, pk):
+        watch = self.get_object(pk=pk)
+        watch_context = {
+            'watch': watch
+        }
 
-    #     return render(request, 'watches/detail_watch.html', watch_context)
+        return render(request, 'watches/detail_watch.html', watch_context)
 
     def post(self, request, pk):
         watch = self.get_object(pk=pk)
