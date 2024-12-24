@@ -30,7 +30,7 @@ class Watch(models.Model):
 
     def __str__(self):
         try:
-            return f'{self.seller.username} - {self.brand}'
+            return f'{self.pk}. {self.seller.username} - {self.brand}'
         except:
             return f"{self.pk}. 'Anonim' - {self.model}"
         
