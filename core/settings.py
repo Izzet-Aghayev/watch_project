@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$%r5*vd238%l*vy*yibaqp)+ot4986n#e$6@8iy7=g7-03w7dk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'bootstrap5',
     'silk',
+    'rest_framework',
 
     # Project app
     'accounts.apps.AccountsConfig',

@@ -17,7 +17,7 @@ class Category(models.Model):
 
 # Modellər burada yaradılır.
 class Watch(models.Model):
-    seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True)    # User ilə Watch modelinin əlaqəsi.
+    seller = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='watches')    # User ilə Watch modelinin əlaqəsi.
     categories = models.ManyToManyField(Category)       # Kateqoriya ilə Watch modelini qlaqələndiri.
 
     brand = models.CharField(max_length=50)     # Simvol limiti vermək olur.

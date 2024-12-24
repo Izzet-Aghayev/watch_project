@@ -117,8 +117,13 @@ class ListWatchView(View):
 
 
 class MyWatchView(View):
+    def get_object(self, request_user):
+        # my_watches = Watch.objects.filter(seller=request_user)
+        my_watches = request_user.watches.all()
+        return my_watches
+
     def get(self, request):
-        my_watches = Watch.objects.filter(seller=request.user)
+        my_watches = self.get_object(request_user=request.user)
         context = {
             'my_watches': my_watches
         }

@@ -23,6 +23,9 @@ from django.urls import path, include, re_path
 from django.views.static import serve
 
 urlpatterns = [
+    # for api
+    path('api/v1/', include('core.api_routes')),
+
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('', include('watches.urls')),
