@@ -219,7 +219,7 @@ class DeleteWatchView(LoginRequiredMixin, View):
 
         self.perform_delete(obj=watch)      # Watch məlumatlarını silmək üçün method.
         messages.success(request, f'{pk} ID-li watch məlumatları silindi.') # Uğurlu mesajı.
-        return redirect('all_watch')
+        return redirect('my_watch')
     
     def perform_delete(self, obj):
         obj.delete()
